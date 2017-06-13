@@ -2,6 +2,16 @@
 
 Bindings for i2c-dev. Plays well with Raspberry Pi and Beaglebone.
 
+/home/pi/.node-red
+└─┬ i2c@0.2.3 
+  ├── bindings@1.2.1 
+  ├── coffee-script@1.9.1 
+  ├── nan@2.3.5 
+  ├── repl@0.1.3 
+  └── underscore@1.8.2 
+
+
+
 ## Install
 
 ````bash
