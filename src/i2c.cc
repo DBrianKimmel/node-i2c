@@ -51,7 +51,7 @@ void Scan(const Nan::FunctionCallbackInfo<v8::Value>& info) {
     setAddress(i);
     if ((i >= 0x30 && i <= 0x37) || (i >= 0x50 && i <= 0x5F)) {
       res = i2c_smbus_read_byte(fd);
-    } else { 
+    } else {
       res = i2c_smbus_write_quick(fd, I2C_SMBUS_WRITE);
     }
     if (res >= 0) {
@@ -126,13 +126,13 @@ void Read(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 void ReadByte(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::HandleScope scope;
-  
-  Local<Value> data; 
+
+  Local<Value> data;
   Local<Value> err = Nan::New<Value>(Nan::Null());
 
   int32_t res = i2c_smbus_read_byte(fd);
 
-  if (res == -1) { 
+  if (res == -1) {
     err = Nan::Error(Nan::New("Cannot read device").ToLocalChecked());
   } else {
     data = Nan::New<Integer>(res);
@@ -153,7 +153,7 @@ void ReadBlock(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
   int8_t cmd = info[0]->Int32Value();
   int32_t len = info[1]->Int32Value();
-  uint8_t data[len]; 
+  uint8_t data[len];
   Local<Value> err = Nan::New<Value>(Nan::Null());
   // Local<Object> buffer = node::Buffer::New(len);
   //new version for Nan
@@ -173,7 +173,7 @@ void ReadBlock(const Nan::FunctionCallbackInfo<v8::Value>& info) {
       Local<Value> argv[argc] = { err, buffer };
       Nan::MakeCallback(Nan::GetCurrentContext()->Global(), callback, argc, argv);
     }
- 
+
     if (info[2]->IsNumber()) {
       int32_t delay = info[2]->Int32Value();
       usleep(delay * 1000);
@@ -249,12 +249,12 @@ void WriteBlock(const Nan::FunctionCallbackInfo<v8::Value>& info) {
 
 void WriteWord(const Nan::FunctionCallbackInfo<v8::Value>& info) {
   Nan::HandleScope scope;
-  
+
   int8_t cmd = info[0]->Int32Value();
   int16_t word = info[1]->Int32Value();
 
   Local<Value> err = Nan::New<Value>(Nan::Null());
-  
+
   if (i2c_smbus_write_word_data(fd, cmd, word) == -1) {
     err = Nan::Error(Nan::New("Cannot write to device").ToLocalChecked());
   }
@@ -293,3 +293,4 @@ void Init(Handle<Object> exports) {
 }
 
 NODE_MODULE(i2c, Init)
+
